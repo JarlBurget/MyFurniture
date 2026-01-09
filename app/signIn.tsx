@@ -1,53 +1,54 @@
+import { UserContext } from "@/app/context/UserContext";
 import GoogleButton from "@/components/forms/GoogleButton";
 import InputField from "@/components/forms/InputField_";
 import { ButtonColors } from "@/constants/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { push } from "expo-router/build/global-state/routing";
-import React, { useState } from "react";
-import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
+import React, { useContext, useState } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function SignInScreen() {
+export default function SignUpScreen() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const { setUser } = useContext(UserContext);
 
-  const handleSignIn = () => {
-    Alert.alert("Sign In", `Email: ${email}\nPassword: ${password}`);
+  const handleSignUp = () => {
+    if (!name || !email || !password) return;
+    setUser({ name, email });
     push("/(tabs)");
   };
 
   return (
     <View style={styles.container}>
-      {/* Back & Title */}
       <View style={styles.header}>
         <Ionicons name="arrow-back" size={24} color="#000" onPress={() => router.back()} />
-        <Text style={styles.title}>Sign In</Text>
+        <Text style={styles.title}>Sign Up</Text>
       </View>
 
-      {/* Inputs */}
+      <InputField placeholder="Name" value={name} onChangeText={setName} />
       <InputField placeholder="E-mail" value={email} onChangeText={setEmail} />
       <InputField placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} />
 
-      {/* Sign In Button */}
-      <Pressable style={styles.button} onPress={handleSignIn}>
-        <Text style={styles.buttonText}>Sign In</Text>
-        
+      <Text style={styles.terms}>I agree with <Text style={{ color: "#4F63AC" }}>Terms & Privacy</Text></Text>
+
+      <Pressable style={styles.button} onPress={handleSignUp}>
+        <Text style={styles.buttonText}>Sign Up</Text>
       </Pressable>
 
-      {/* Google Button */}
       <View style={styles.divider}>
         <View style={styles.line} />
-        <Text style={styles.or}>Or sign in with</Text>
+        <Text style={styles.or}>Or sign up with</Text>
         <View style={styles.line} />
       </View>
-      <GoogleButton onPress={() => Alert.alert("Google Sign In")} />
+      <GoogleButton onPress={() => {}} />
 
-      {/* Footer Link */}
       <Text style={styles.footer}>
-        Don’t have an account?{" "}
-        <Text style={{ color: "#4F63AC" }} onPress={() => router.push("/signUp")}>
-          Sign Up
+        Already have an account?{" "}
+        <Text style={{ color: "#4F63AC" }} onPress={() => router.push("/signIn")}>
+          Sign In
         </Text>
       </Text>
     </View>
@@ -58,14 +59,9 @@ const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, backgroundColor: "#fff" },
   header: { flexDirection: "row", alignItems: "center", marginBottom: 30 },
   title: { fontSize: 26, fontWeight: "700", marginLeft: 10 },
-  button: {
-    backgroundColor: ButtonColors.signInBackground,
-    paddingVertical: 15,
-    borderRadius: 8,
-    alignItems: "center",
-    marginTop: 10,
-  },
-  buttonText: { color: ButtonColors.signInText, fontSize: 16, fontWeight: "600" },
+  terms: { fontSize: 14, marginBottom: 20 },
+  button: { backgroundColor: ButtonColors.signUpBackground, paddingVertical: 15, borderRadius: 8, alignItems: "center", marginTop: 10 },
+  buttonText: { color: ButtonColors.signUpText, fontSize: 16, fontWeight: "600" },
   divider: { flexDirection: "row", alignItems: "center", marginVertical: 20 },
   line: { flex: 1, height: 1, backgroundColor: "#ccc" },
   or: { marginHorizontal: 10, fontSize: 14, color: "#888" },
