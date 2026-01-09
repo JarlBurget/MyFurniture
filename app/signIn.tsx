@@ -3,6 +3,7 @@ import InputField from "@/components/forms/InputField_";
 import { ButtonColors } from "@/constants/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { push } from "expo-router/build/global-state/routing";
 import React, { useState } from "react";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -13,6 +14,7 @@ export default function SignInScreen() {
 
   const handleSignIn = () => {
     Alert.alert("Sign In", `Email: ${email}\nPassword: ${password}`);
+    push("/(tabs)");
   };
 
   return (
@@ -30,6 +32,7 @@ export default function SignInScreen() {
       {/* Sign In Button */}
       <Pressable style={styles.button} onPress={handleSignIn}>
         <Text style={styles.buttonText}>Sign In</Text>
+        
       </Pressable>
 
       {/* Google Button */}

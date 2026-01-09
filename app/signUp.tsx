@@ -3,6 +3,7 @@ import InputField from "@/components/forms/InputField_";
 import { ButtonColors } from "@/constants/theme";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { push } from "expo-router/build/global-state/routing";
 import React, { useState } from "react";
 import { Alert, Pressable, StyleSheet, Text, View } from "react-native";
 
@@ -14,6 +15,7 @@ export default function SignUpScreen() {
 
   const handleSignUp = () => {
     Alert.alert("Sign Up", `Name: ${name}\nEmail: ${email}\nPassword: ${password}`);
+    push("/(tabs)");
   };
 
   return (
