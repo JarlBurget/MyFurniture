@@ -1,5 +1,5 @@
 import { FavoritesContext } from "@/app/context/FavoritesContext";
-import { fetchProducts, Product } from "@/app/data";
+import { furnitureData, FurnitureItem } from "@/app/data";
 import { Ionicons } from "@expo/vector-icons";
 import { useLocalSearchParams } from "expo-router";
 import { push } from "expo-router/build/global-state/routing";
@@ -18,15 +18,13 @@ export default function DetailScreen() {
   const { productId } = useLocalSearchParams();
   const { favorites, toggleFavorite } = useContext(FavoritesContext);
 
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<FurnitureItem | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchProducts().then((data) => {
-      const found = data.find((p) => p.id === String(productId)) || null;
-      setProduct(found);
-      setLoading(false);
-    });
+    const found = furnitureData.find((p) => p.id === Number(productId)) || null;
+    setProduct(found);
+    setLoading(false);
   }, [productId]);
 
   if (loading) {
@@ -45,10 +43,10 @@ export default function DetailScreen() {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
-      <Image source={{ uri: product.image }} style={styles.image} />
+      <Image source={{ uri: product.imageUrl }} style={styles.image} />
 
       <View style={styles.card}>
-        <Text style={styles.title}>{product.title}</Text>
+        <Text style={styles.title}>{product.name}</Text>
         <Text style={styles.price}>${product.price.toFixed(2)}</Text>
         <Text style={styles.description}>{product.description}</Text>
 

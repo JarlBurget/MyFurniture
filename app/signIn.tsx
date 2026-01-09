@@ -8,15 +8,16 @@ import { push } from "expo-router/build/global-state/routing";
 import React, { useContext, useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 
-export default function SignUpScreen() {
-  const [name, setName] = useState("");
+export default function SignInScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const { setUser } = useContext(UserContext);
 
-  const handleSignUp = () => {
-    if (!name || !email || !password) return;
+  const handleSignIn = () => {
+    if (!email || !password) return;
+    // For demo purposes, sign in with just email (name can be extracted from email)
+    const name = email.split('@')[0];
     setUser({ name, email });
     push("/(tabs)");
   };
@@ -25,30 +26,31 @@ export default function SignUpScreen() {
     <View style={styles.container}>
       <View style={styles.header}>
         <Ionicons name="arrow-back" size={24} color="#000" onPress={() => router.back()} />
-        <Text style={styles.title}>Sign Up</Text>
+        <Text style={styles.title}>Sign In</Text>
       </View>
 
-      <InputField placeholder="Name" value={name} onChangeText={setName} />
       <InputField placeholder="E-mail" value={email} onChangeText={setEmail} />
       <InputField placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} />
 
-      <Text style={styles.terms}>I agree with <Text style={{ color: "#4F63AC" }}>Terms & Privacy</Text></Text>
+      <Text style={styles.forgot}>
+        <Text style={{ color: "#4F63AC" }}>Forgot Password?</Text>
+      </Text>
 
-      <Pressable style={styles.button} onPress={handleSignUp}>
-        <Text style={styles.buttonText}>Sign Up</Text>
+      <Pressable style={styles.button} onPress={handleSignIn}>
+        <Text style={styles.buttonText}>Sign In</Text>
       </Pressable>
 
       <View style={styles.divider}>
         <View style={styles.line} />
-        <Text style={styles.or}>Or sign up with</Text>
+        <Text style={styles.or}>Or sign in with</Text>
         <View style={styles.line} />
       </View>
       <GoogleButton onPress={() => {}} />
 
       <Text style={styles.footer}>
-        Already have an account?{" "}
-        <Text style={{ color: "#4F63AC" }} onPress={() => router.push("/signIn")}>
-          Sign In
+        Don't have an account?{" "}
+        <Text style={{ color: "#4F63AC" }} onPress={() => router.push("/signUp")}>
+          Sign Up
         </Text>
       </Text>
     </View>
@@ -59,9 +61,9 @@ const styles = StyleSheet.create({
   container: { flex: 1, padding: 20, backgroundColor: "#fff" },
   header: { flexDirection: "row", alignItems: "center", marginBottom: 30 },
   title: { fontSize: 26, fontWeight: "700", marginLeft: 10 },
-  terms: { fontSize: 14, marginBottom: 20 },
-  button: { backgroundColor: ButtonColors.signUpBackground, paddingVertical: 15, borderRadius: 8, alignItems: "center", marginTop: 10 },
-  buttonText: { color: ButtonColors.signUpText, fontSize: 16, fontWeight: "600" },
+  forgot: { fontSize: 14, marginBottom: 20, textAlign: "right" },
+  button: { backgroundColor: ButtonColors.signInBackground, paddingVertical: 15, borderRadius: 8, alignItems: "center", marginTop: 10 },
+  buttonText: { color: ButtonColors.signInText, fontSize: 16, fontWeight: "600" },
   divider: { flexDirection: "row", alignItems: "center", marginVertical: 20 },
   line: { flex: 1, height: 1, backgroundColor: "#ccc" },
   or: { marginHorizontal: 10, fontSize: 14, color: "#888" },

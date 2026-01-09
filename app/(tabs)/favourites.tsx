@@ -1,22 +1,27 @@
 import { FavoritesContext } from "@/app/context/FavoritesContext";
-import { fetchProducts, Product } from "@/app/data";
+import { furnitureData, FurnitureItem } from "@/app/data";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useContext, useEffect, useState } from "react";
 import { ActivityIndicator, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
+type Category = 'all' | 'chair' | 'table' | 'armchair' | 'bed' | 'lamp';
+
 export default function FavoritesScreen() {
   const { favorites, toggleFavorite } = useContext(FavoritesContext);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<FurnitureItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState<Category>('all');
 
   useEffect(() => {
-    fetchProducts().then((data) => {
-      setProducts(data);
-      setLoading(false);
-    });
+    setProducts(furnitureData);
+    setLoading(false);
   }, [favorites]);
 
-  const favoriteItems = products.filter((item) => favorites.includes(item.id));
+  const favoriteItems = products.filter((item) => {
+    const isFavorite = favorites.includes(item.id);
+    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+    return isFavorite && matchesCategory;
+  });
 
   if (loading) {
     return (
@@ -27,13 +32,13 @@ export default function FavoritesScreen() {
     );
   }
 
-  const renderItem = ({ item }: { item: Product }) => (
+  const renderItem = ({ item }: { item: FurnitureItem }) => (
     <View style={styles.card}>
-      <Image source={{ uri: item.image }} style={styles.image} />
+      <Image source={{ uri: item.imageUrl }} style={styles.image} />
       <TouchableOpacity style={styles.heartIcon} onPress={() => toggleFavorite(item.id)}>
         <Ionicons name="heart" size={22} color="#E53935" />
       </TouchableOpacity>
-      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.title}>{item.name}</Text>
       <Text style={styles.price}>${item.price.toFixed(2)}</Text>
     </View>
   );
@@ -41,13 +46,15 @@ export default function FavoritesScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>My Favorites</Text>
+    
+      
       {favoriteItems.length === 0 ? (
         <Text style={styles.emptyText}>No favorites yet.</Text>
       ) : (
         <FlatList
           data={favoriteItems}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.id.toString()}
           numColumns={2}
           columnWrapperStyle={{ justifyContent: "space-between" }}
           contentContainerStyle={{ paddingBottom: 100 }}
