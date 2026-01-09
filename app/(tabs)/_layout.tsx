@@ -1,10 +1,9 @@
-import { FavoritesProvider } from "@/app/context/FavoritesContext";
 import { Ionicons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 
 export default function TabsLayout() {
   return (
-    <FavoritesProvider>
+    
       <Tabs
         screenOptions={{
           headerShown: false,
@@ -31,7 +30,16 @@ export default function TabsLayout() {
             ),
           }}
         />
+              <Tabs.Screen
+          name="profile"
+          options={{
+            title: "profile",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="settings" size={size} color={color} />
+            ),
+          }} 
+          />
       </Tabs>
-    </FavoritesProvider>
+    
   );
 }
