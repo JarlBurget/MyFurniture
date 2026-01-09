@@ -17,8 +17,8 @@ export default function SplashScreen() {
       />
       <Text style={styles.text}>Welcome to My App!</Text>
 
-      <SignUpButton onPress={() => router.push("/(tabs)")} />
-      <SignInButton onPress={() => router.push("/(tabs)")} />
+      <SignUpButton onPress={() => router.push("/signUp")} />
+      <SignInButton onPress={() => router.push("/signIn")} />
     </View>
   );
 }
