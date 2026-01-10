@@ -1,8 +1,9 @@
 import { FavoritesContext } from "@/app/context/FavoritesContext";
-import { furnitureData, FurnitureItem } from "@/app/data";
+import { FurnitureItem } from "@/app/data";
+import { useFurniture } from "@/hooks/useFurniture";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
@@ -30,16 +31,13 @@ export default function HomeScreen() {
   const router = useRouter();
   const { favorites, toggleFavorite } = useContext(FavoritesContext);
 
-  const [products, setProducts] = useState<FurnitureItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Fetch furniture data from API (or local JSON if no URL provided)
+  // Replace the URL with your actual API endpoint
+  const { data: products, loading, error } = useFurniture();
+  
   const [showSearch, setShowSearch] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<Category>("all");
-
-  useEffect(() => {
-    setProducts(furnitureData);
-    setLoading(false);
-  }, []);
 
   const filteredData = products.filter((item) => {
     const matchesSearch = item.name
@@ -82,6 +80,17 @@ export default function HomeScreen() {
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#4F63AC" />
         <Text>Loading products...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.errorContainer}>
+        <Ionicons name="alert-circle-outline" size={50} color="#E53935" />
+        <Text style={styles.errorTitle}>Oops!</Text>
+        <Text style={styles.errorMessage}>{error}</Text>
+        <Text style={styles.errorSubtext}>Please check your internet connection or try again later.</Text>
       </View>
     );
   }
@@ -260,5 +269,35 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    paddingHorizontal: 20,
+  },
+
+  errorTitle: {
+    fontSize: 24,
+    fontWeight: "700",
+    marginTop: 16,
+    color: "#000",
+  },
+
+  errorMessage: {
+    fontSize: 16,
+    color: "#E53935",
+    marginTop: 8,
+    textAlign: "center",
+    fontWeight: "600",
+  },
+
+  errorSubtext: {
+    fontSize: 14,
+    color: "#888",
+    marginTop: 8,
+    textAlign: "center",
   },
 });
