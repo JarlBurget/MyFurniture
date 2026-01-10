@@ -1,20 +1,23 @@
 import { FavoritesContext } from "@/app/context/FavoritesContext";
 import { furnitureData, FurnitureItem } from "@/app/data";
 import { Ionicons } from "@expo/vector-icons";
-import { useLocalSearchParams } from "expo-router";
-import { push } from "expo-router/build/global-state/routing";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import React, { useContext, useEffect, useState } from "react";
 import {
-    ActivityIndicator,
-    Image,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Dimensions,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
+const { height: SCREEN_HEIGHT } = Dimensions.get("window");
+
 export default function DetailScreen() {
+  const router = useRouter();
   const { productId } = useLocalSearchParams();
   const { favorites, toggleFavorite } = useContext(FavoritesContext);
 
@@ -39,81 +42,119 @@ export default function DetailScreen() {
   if (!product) return <Text style={{ padding: 20 }}>Product not found</Text>;
 
   const isFavorite = favorites.includes(product.id);
-  
 
   return (
-    <ScrollView style={{ flex: 1, backgroundColor: "#fff" }}>
+    <View style={styles.container}>
+      {/* Top Back Button */}
+      <TouchableOpacity
+        style={styles.backButtonTop}
+        onPress={() => router.back()}
+      >
+        <Ionicons name="chevron-back" size={20} color="#4F63AC" />
+      </TouchableOpacity>
+
+      {/* Image */}
       <Image source={{ uri: product.imageUrl }} style={styles.image} />
 
-      <View style={styles.card}>
-        <Text style={styles.title}>{product.name}</Text>
-        <Text style={styles.price}>${product.price.toFixed(2)}</Text>
-        <Text style={styles.description}>{product.description}</Text>
+      {/* Card */}
+      <View style={styles.cardContainer}>
+        <ScrollView
+          contentContainerStyle={styles.cardContent}
+          showsVerticalScrollIndicator={false}
+        >
+          <Text style={styles.title}>{product.name}</Text>
+          <Text style={styles.price}>${product.price.toFixed(2)}</Text>
+          <Text style={styles.description}>{product.description}</Text>
 
-        <View style={styles.buttonsContainer}>
-          {/* Heart icon */}
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => toggleFavorite(product.id)}
-          >
-            <Ionicons
-              name={isFavorite ? "heart" : "heart-outline"}
-              size={24}
-              color={isFavorite ? "#E53935" : "#4F63AC"}
-            />
-          </TouchableOpacity>
+          <View style={styles.buttonsContainer}>
+            {/* Heart icon */}
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => toggleFavorite(product.id)}
+            >
+              <Ionicons
+                name={isFavorite ? "heart" : "heart-outline"}
+                size={28}
+                color={isFavorite ? "#E53935" : "#4F63AC"}
+              />
+            </TouchableOpacity>
 
-          {/* Sinine Back nupp */}
-          <TouchableOpacity
-            style={styles.backButton}
-            onPress={() => push("/(tabs)")}
-          >
-            <Text style={styles.backButtonText}>Back</Text>
-          </TouchableOpacity>
-        </View>
+            {/* Back Button */}
+            <TouchableOpacity
+              style={styles.backButton}
+              onPress={() => router.back()}
+            >
+              <Text style={styles.backButtonText}>Back</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  image: { width: "100%", height: 400 },
-  card: {
+  container: {
+    flex: 1,
     backgroundColor: "#fff",
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    marginTop: -40,
-    padding: 20,
+  },
+  image: {
+    width: "100%",
+    height: SCREEN_HEIGHT * 0.55,
+  },
+  backButtonTop: {
+    position: "absolute",
+    top: 32,
+    left: 24,
+    zIndex: 10,
+    width: 40,
+    height: 40,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
     shadowColor: "#000",
     shadowOpacity: 0.1,
-    shadowRadius: 10,
-    elevation: 5,
+    shadowRadius: 6,
+    elevation: 3,
   },
-  title: { fontSize: 24, fontWeight: "600", marginBottom: 8 },
-  price: { fontSize: 30, fontWeight: "700", marginBottom: 12 },
-  description: { fontSize: 14, color: "#606060", lineHeight: 22 },
+  cardContainer: {
+    flex: 1,
+    marginTop: -40, // overlap image
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    backgroundColor: "#fff",
+    paddingHorizontal: 24,
+    paddingTop: 24,
+  },
+  cardContent: {
+    paddingBottom: 40, // space for buttons
+  },
+  title: { fontSize: 26, fontWeight: "600", marginBottom: 12 },
+  price: { fontSize: 32, fontWeight: "700", marginBottom: 14 },
+  description: { fontSize: 16, color: "#606060", lineHeight: 24, marginBottom: 32 },
   buttonsContainer: {
     flexDirection: "row",
-    marginTop: 20,
-    alignItems: "center",
     justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 20,
   },
   iconButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 12,
+    width: 60,
+    height: 60,
+    borderRadius: 14,
     backgroundColor: "#F1F3FF",
-    alignItems: "center",
     justifyContent: "center",
+    alignItems: "center",
   },
   backButton: {
-    paddingVertical: 12,
-    paddingHorizontal: 20,
+    paddingVertical: 16,
+    paddingHorizontal: 28,
     backgroundColor: "#4F63AC",
-    borderRadius: 12,
+    borderRadius: 14,
     justifyContent: "center",
     alignItems: "center",
   },
-  backButtonText: { color: "#fff", fontWeight: "600" },
+  backButtonText: { color: "#fff", fontWeight: "700", fontSize: 16 },
   loadingContainer: { flex: 1, justifyContent: "center", alignItems: "center" },
 });
