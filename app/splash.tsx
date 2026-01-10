@@ -15,10 +15,14 @@ export default function SplashScreen() {
         style={styles.image}
         resizeMode="contain"
       />
-      <Text style={styles.text}>
-  You’ll find <Text style={{ color: "#FCA34D" }}>all you need</Text> here!
-</Text>
 
+      <View style={styles.textContainer}>
+        <Text style={styles.textLine}>You’ll find</Text>
+        <Text style={[styles.textLine, styles.orangeUnderline]}>
+          All you need
+        </Text>
+        <Text style={styles.textLine}>Here!</Text>
+      </View>
 
       <SignUpButton onPress={() => router.push("/signUp")} />
       <SignInButton onPress={() => router.push("/signIn")} />
@@ -26,9 +30,29 @@ export default function SplashScreen() {
   );
 }
 
-
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#fff" },
-  image: { width: 300, height: 300, marginBottom: 30 },
-  text: { fontSize: 24, fontWeight: "bold", textAlign: "center", marginBottom: 40 },
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#fff",
+    paddingHorizontal: 20,
+  },
+  image: {
+    width: 300,
+    height: 300, // reduced from 30 to 15
+  },
+  textContainer: {
+    marginBottom: 40,
+    alignItems: "center",
+  },
+  textLine: {
+    fontSize: 30,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  orangeUnderline: {
+    color: "#FCA34D",
+    textDecorationLine: "underline",
+  },
 });
