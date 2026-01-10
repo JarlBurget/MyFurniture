@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
   button: {
     width: "80%",
     paddingVertical: 15,
-    backgroundColor: ButtonColors.signInBackground,
     borderRadius: 8,
     marginBottom: 15,
     alignItems: "center",

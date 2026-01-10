@@ -58,7 +58,7 @@ export default function SignInScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
+  container: { flex: 1, padding: 20, paddingTop: 60, backgroundColor: "#fff" },
   header: { flexDirection: "row", alignItems: "center", marginBottom: 30 },
   title: { fontSize: 26, fontWeight: "700", marginLeft: 10 },
   forgot: { fontSize: 14, marginBottom: 20, textAlign: "right" },
