@@ -1,0 +1,30 @@
+[33m57b90f6[m[33m ([m[1;36mHEAD[m[33m)[m HEAD@{0}: rebase: fast-forward
+[33m7da8794[m HEAD@{1}: rebase (start): checkout 57b90f6^
+[33mdf4205e[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{2}: rebase (finish): returning to refs/heads/master
+[33mdf4205e[m[33m ([m[1;32mmaster[m[33m)[m HEAD@{3}: rebase (pick): ET kõik oleks chicki bricki ja titimiti
+[33mc984397[m HEAD@{4}: rebase (pick): Veel iluvigu mis vajas parandust
+[33m556c87e[m HEAD@{5}: rebase (pick): Stiilivead Splashil
+[33m884a003[m HEAD@{6}: rebase (pick): 1 toote vaatamise lehe timmimine.
+[33m8f7f7ec[m HEAD@{7}: rebase (pick): Heartshaped glasses ehk sain lemmikute jaoks südame tööle.
+[33m9ca36db[m HEAD@{8}: rebase (pick): Lisasin filtriid. Muutsin dummydata m;;bliomaks. ja majandasin veel ringi.
+[33mcb3cc86[m HEAD@{9}: rebase (pick): Kinda sussy baka atm. SignIn jamab ja mingid asjad on veel lappes
+[33m77c8978[m HEAD@{10}: rebase (pick): Väike switcheruu dataga - eraldi data file. Loodud eraldi detaili vaade. Tehtud Profiili vaade ikka.... on austatud vähemalt.
+[33m69a80b1[m HEAD@{11}: rebase (pick): Tehtud favourites ja home ja parandatud natsa asju. VSC väga ei kannata mu @ aadresse (ai parandab need ../) seega fixib need hiljem.
+[33md99070c[m HEAD@{12}: rebase (pick): UUUU look at a me, I make such a cool signup and login pages. Also added the fav and prfile pages
+[33m57b90f6[m[33m ([m[1;36mHEAD[m[33m)[m HEAD@{13}: rebase (reword): Ma ei saa aru miks see Maret selline kasutu tont peab olema ja meile mitte kui sittagi ei õpeta
+[33m18a00d8[m HEAD@{14}: rebase: fast-forward
+[33m7da8794[m HEAD@{15}: rebase (start): checkout 18a00d8^
+[33m0ea692d[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{16}: rebase (finish): returning to refs/heads/master
+[33m0ea692d[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{17}: rebase (start): checkout 18a00d8^
+[33m0ea692d[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{18}: commit: ET kõik oleks chicki bricki ja titimiti
+[33m97d70a2[m HEAD@{19}: commit: Veel iluvigu mis vajas parandust
+[33m4852032[m HEAD@{20}: commit: Stiilivead Splashil
+[33m3ed19e3[m HEAD@{21}: commit: 1 toote vaatamise lehe timmimine.
+[33m10b5a00[m HEAD@{22}: commit: Heartshaped glasses ehk sain lemmikute jaoks südame tööle.
+[33m177077b[m HEAD@{23}: commit: Lisasin filtriid. Muutsin dummydata m;;bliomaks. ja majandasin veel ringi.
+[33mfd518ed[m HEAD@{24}: commit: Kinda sussy baka atm. SignIn jamab ja mingid asjad on veel lappes
+[33m91b623b[m HEAD@{25}: commit: Väike switcheruu dataga - eraldi data file. Loodud eraldi detaili vaade. Tehtud Profiili vaade ikka.... on austatud vähemalt.
+[33m2981937[m HEAD@{26}: commit: Tehtud favourites ja home ja parandatud natsa asju. VSC väga ei kannata mu @ aadresse (ai parandab need ../) seega fixib need hiljem.
+[33md377c28[m HEAD@{27}: commit: UUUU look at a me, I make such a cool signup and login pages. Also added the fav and prfile pages
+[33m18a00d8[m HEAD@{28}: commit: Ma ei saa aru miks see Maret selline kasutu tont peab olema ja meile mitte kui sittagi ei õpeta
+[33m7da8794[m HEAD@{29}: commit (initial): Initial commit
